@@ -1334,6 +1334,8 @@ var ValidationValidators = {
  */
 var ValidationUI = {
 
+    errorId: 0,
+
     config: ValidationConfig,
 
     /* ************************************************************************
@@ -1369,6 +1371,7 @@ var ValidationUI = {
     createErrorNode: function createErrorNode() {
         var el = document.createElement(this.config.tagNameError);
         el.classList.add(this.config.classError);
+        el.setAttribute('role', 'alert');
         return el;
     },
 
@@ -1395,6 +1398,23 @@ var ValidationUI = {
         if (el) {
             el.parentNode.removeChild(el);
             this.toggleErrorClass(inputGroup);
+
+            // unlink error message to input
+            var input = this.getInput(inputGroup);
+            var descriptionAttr = input.getAttribute('aria-describedby');
+            if (descriptionAttr) {
+                var descriptions = descriptionAttr.split(',');
+                for (var i = descriptions.length - 1; i >= 0; i--) {
+                    if (descriptions[i] === el.id) {
+                        descriptions.splice(i, 1);
+                    }
+                }
+                if (descriptions.length) {
+                    input.setAttribute('aria-describedby', descriptions.join(','));
+                } else {
+                    input.removeAttribute('aria-describedby');
+                }
+            }
         }
     },
 
@@ -1426,6 +1446,20 @@ var ValidationUI = {
             errorNode = this.createErrorNode();
             this.toggleErrorClass(inputGroup);
             this.insertErrorNode(inputGroup, errorNode);
+
+            // link error message to input
+            var id = 'input-error-' + ++this.errorId;
+            errorNode.id = id;
+            var input = this.getInput(inputGroup);
+            var descriptionAttr = input.getAttribute('aria-describedby');
+            if (descriptionAttr) {
+                descriptionAttr = descriptionAttr.trim();
+            }
+            if (descriptionAttr) {
+                input.setAttribute('aria-describedby', descriptionAttr + ',' + id);
+            } else {
+                input.setAttribute('aria-describedby', id);
+            }
         }
         // set or update error message
         errorNode.textContent = message;

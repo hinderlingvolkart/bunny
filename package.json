@@ -58,6 +58,7 @@
   "dependencies": {
     "assets-builder": "^0.1.5",
     "es6-promise-polyfill": "^1.2.0",
+    "rollup": "^0.59.1",
     "whatwg-fetch": "^2.0.2"
   }
 }

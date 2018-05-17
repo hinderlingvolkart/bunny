@@ -33,8 +33,14 @@
 
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required maxlength="18" data-ajax="https://bunnyjs.com/api/users/email-exists/?q={value}">
-                <small>Try <i>user@user.com</i> for ajax validation</small>
+                <input type="email" name="email" id="email" class="form-control" aria-describedby="email-help" placeholder="E-mail" required>
+                <small id="email-help">We need your E-Mail to send you great news.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail (with Ajax)</label>
+                <input type="email" name="email-ajax" id="email-ajax" class="form-control" aria-describedby="email-ajax-help" placeholder="E-mail" required maxlength="18" data-ajax="https://bunnyjs.com/api/users/email-exists/?q={value}">
+                <small id="email-ajax-help">Try <i>user@user.com</i> for ajax validation</small>
             </div>
 
             <div class="form-group">
@@ -49,8 +55,8 @@
 
             <div class="form-group">
                 <label for="photo">Photo</label>
-                <input type="file" name="photo" accept="image/jpeg, image/png" id="photo" class="form-control" placeholder="Photo" required maxfilesize="1" mindimensions="500x500">
-                <small><ul>
+                <input type="file" name="photo" accept="image/jpeg, image/png" id="photo" class="form-control" aria-describedby="photo-help" placeholder="Photo" required maxfilesize="1" mindimensions="500x500">
+                <small id="photo-help><ul>
                     <li>Try uploading non-images even if they have .png/.jpg extension</li>
                     <li>Images < 500x500px will be invalid</li>
                     <li>And try uploading images larger then 1MB</li>

@@ -1218,19 +1218,19 @@ var Form$1 = Form = {
         this._checkInit(form_id);
         return document.querySelectorAll(`[data-mirror="${form_id}"]`);
     },
-      _getCalcMirrorFunction(calc_mirror_el) {
+     _getCalcMirrorFunction(calc_mirror_el) {
         return calc_mirror_el.getAttribute('data-mirror-function');
     },
-      _calcMirror(form_id, calc_mirror, calc_mirror_function) {
+     _calcMirror(form_id, calc_mirror, calc_mirror_function) {
         // parse function
         const input_names = calc_mirror_function.split('*');
         console.log(input_names);
         // get arguments (inputs)
         const input1 = document.forms[form_id].elements[input_names[0]];
         const input2 = document.forms[form_id].elements[input_names[1]];
-          const value1 = (input1.value === '') ? 0 : input1.value;
+         const value1 = (input1.value === '') ? 0 : input1.value;
         const value2 = (input2.value === '') ? 0 : input2.value;
-          // update collection
+         // update collection
         if (this._calcMirrorCollection[form_id] === undefined) {
             this._calcMirrorCollection[form_id] = {};
         }
@@ -1242,9 +1242,9 @@ var Form$1 = Form = {
         }
         this._calcMirrorCollection[form_id][input1.name][input2.name] = calc_mirror;
         this._calcMirrorCollection[form_id][input2.name][input1.name] = calc_mirror;
-          // set initial value
+         // set initial value
         calc_mirror.textContent = value1 * value2;
-          // set new value when input value changed
+         // set new value when input value changed
         input1.addEventListener('change', () => {
             calc_mirror.textContent = input1.value * document.forms[form_id].elements[input2.name].value;
         });
@@ -1252,7 +1252,7 @@ var Form$1 = Form = {
             calc_mirror.textContent = input2.value * document.forms[form_id].elements[input1.name].value;
         });
     },
-      calcMirrorAll(form_id) {
+     calcMirrorAll(form_id) {
         this._checkInit(form_id);
         const calc_mirrors = this._getCalcMirrors(form_id);
         for(let calc_mirror of calc_mirrors) {
